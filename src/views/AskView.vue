@@ -1,38 +1,36 @@
 <template>
   <div>
-      <div v-for="ask in fetchedAsks" v-bind:key="ask.id">{{ ask.title }}</div>
+    <ListItem></ListItem>
   </div>
+   
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import ListItem from '../components/ListItem.vue'
+import bus from '../utils/bus'
+// import ListMixin from '../mixins/ListMixin.js'
+
 export default {
-    computed:{
-        // #1
-        // ask(){
-        //     return this.$store.state.ask;
-        // }
-        //  #2
-        // ...mapState({
-        //     ask: state => state.asks
-        // }),
-        // // #3 객체 표기법
-        // ...mapGetters({
-        //     fetchedAsks: 'fetchedAsks'
-        // })
+  components:{
+    ListItem,
+  },
+  mounted() {
+    bus.$emit('end:spinner');
+  }
+  // mixins:[ListMixin],
+  // created(){
+  //   bus.$emit('start:spinner');
 
-        // #4 배열 표기법
-        ...mapGetters([
-            'fetchedAsks'
-        ])
-
-    },
-    created(){
-        this.$store.dispatch('FETCH_ASKS');
-    }
+  //       setTimeout(()=>{
+  //           this.$store.dispatch('FETCH_ASKS')
+  //           .then(()=>{
+  //               console.log('fetched');
+  //               bus.$emit('end:spinner');
+  //           })
+  //           .catch((error) => {
+  //               console.log(error);
+  //           });
+  //       }, 3000)
+  // }
 }
 </script>
-
-<style>
-
-</style>

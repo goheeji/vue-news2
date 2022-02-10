@@ -1,17 +1,35 @@
 <template>
   <div>
-    <div v-for="job in this.$store.state.jobs" v-bind:key="job.id">{{ job.title }}</div>
+    <ListItem></ListItem>
   </div>
 </template>
 
 <script>
+import ListItem from '../components/ListItem.vue'
+import bus from '../utils/bus'
+// import ListMixin from '../mixins/ListMixin.js'
+
 export default {
-  created(){
-    this.$store.dispatch('FETCH_JOBS');
+  components:{
+        ListItem,
+    },
+  mounted() {
+    bus.$emit('end:spinner');
   }
+    // mixins:[ListMixin],
+    // created(){
+    //   bus.$emit('start:spinner');
+
+    //     setTimeout(()=>{
+    //         this.$store.dispatch('FETCH_JOBS')
+    //         .then(()=>{
+    //             console.log('fetched');
+    //             bus.$emit('end:spinner');
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    //     }, 3000)
+    // }
 }
 </script>
-
-<style>
-
-</style>
